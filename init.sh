@@ -12,20 +12,22 @@ echo "Test123" | passwd --stdin testuser02
 gpasswd -a testuser01 admin
 gpasswd -a vagrant admin
 gpasswd -a testuser01 docker
-sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   /usr/local/bin/logon.sh' /etc/pam.d/sshd
-sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   /usr/local/bin/logon.sh' /etc/pam.d/login
+sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   \/usr\/local\/bin\/logon\.sh' /etc/pam.d/sshd
+sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   \/usr\/local\/bin\/logon\.sh' /etc/pam.d/login
 cat << EOF > /usr/local/bin/logon.sh
 #!/bin/bash
 
-if [[ $(/sbin/lid -g admin | grep $PAM_USER) ]]; then
+if [[ \$(/sbin/lid -g admin | grep \$PAM_USER) ]]; then
   exit 0
 fi
-if [[ `date +%u` -gt "5" ]]; then
+if [[ \`date +%u\` -gt "5" ]]; then
     exit 1
   else
     exit 0;
 fi
 EOF
+chmod +x /usr/local/bin/logon.sh
+sed -i 's/^PasswordAuthentication.*$/PasswordAuthentication yes/' /etc/ssh/sshd_config && systemctl restart sshd.service
 systemctl enable docker
 systemctl restart docker
 echo 'testuser01 ALL=NOPASSWD: /bin/systemctl restart docker.service, /bin/systemctl restart docker' > /etc/sudoers.d/testuser01
