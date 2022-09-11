@@ -10,6 +10,7 @@ useradd testuser02
 echo "Test123" | passwd --stdin testuser01
 echo "Test123" | passwd --stdin testuser02
 gpasswd -a testuser01 admin
+gpasswd -a vagrant admin
 gpasswd -a testuser01 docker
 sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   /usr/local/bin/logon.sh' /etc/pam.d/sshd
 sed -i '/^account\s*required\s*pam_nologin\.so/a account    required     pam_exec.so   /usr/local/bin/logon.sh' /etc/pam.d/login
