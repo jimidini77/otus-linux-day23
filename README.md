@@ -104,6 +104,10 @@ testuser01@192.168.11.102's password:
 [testuser01@otus ~]$ date
 Sun Sep 11 05:17:52 UTC 2022
 ```
+![Local login testuser02](https://github.com/jimidini77/otus-linux-day23/blob/main/Screenshot01.png?raw=true)
+
+![Local login testuser01](https://github.com/jimidini77/otus-linux-day23/blob/main/Screenshot02.png?raw=true)
+
 
 ##  Выдача пользователю прав на работу с докером и возможность рестартить докер сервис
 
