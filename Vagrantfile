@@ -25,7 +25,7 @@ config.vm.synced_folder ".", "/vagrant", disabled: true
           box.vm.provider :virtualbox do |vb|
             	  vb.customize ["modifyvm", :id, "--memory", "1024"]
 		  end
-# 	  box.vm.provision "shell", path: "init.sh"
+ 	  box.vm.provision "shell", path: "init.sh"
       end
   end
 end
